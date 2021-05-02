@@ -1,0 +1,27 @@
+72 hour project
+
+
+create webapi by creating a asp.net web aplication (.NET framework)
+name the project Blue72.WebAPI, and the solution Blue72
+select Web API when creating the web application, and change the authentication to individual user account, and click create
+visual studio will scaffold out the solution. right click on the solution once it is done
+go to add -> new project
+select or search for class library (.NET framework)
+name this assembly Blue72.Data; right click class1 and delete it
+repeat these steps to create the models and services assemblies
+Dealing with the identity model: moving it to a better location for our project
+The web api project should have a models folder with a file called IdentityModels.cs
+this is part of our user authentication from microsoft. to make it more accessible we need to move it
+find it in the models folder of the web api and move it to the Blue72.Data folder
+change its namespace to Blue72.Data; now there are errros to be resolved
+currently the code in the webapi does not have access to the identitymodels.cs file
+now we need to add entity framework to the projects. right click on the solution
+select manage nuget packages for solution. click on the installed tab (we can do this because it came installed in our web api  assembly)
+choose maicrosoft.aspnet.identity. entityframwork; click the project checkbox on the right side
+after being sure all projects are selected click installed
+now search for  owin, select the microsoft.aspnet.identity.owen and mircosoft.aspnetwebapi.owen
+these two are only installed on the data project. now we will add our references. 
+we need to decide what assemblies need to know about what other assemblies in our case
+right click the webapi and go to add->
+
+
