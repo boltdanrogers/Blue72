@@ -17,11 +17,35 @@ change its namespace to Blue72.Data; now there are errros to be resolved
 currently the code in the webapi does not have access to the identitymodels.cs file
 now we need to add entity framework to the projects. right click on the solution
 select manage nuget packages for solution. click on the installed tab (we can do this because it came installed in our web api  assembly)
-choose maicrosoft.aspnet.identity. entityframwork; click the project checkbox on the right side
+choose microsoft.aspnet.identity. entityframwork; click the project checkbox on the right side
 after being sure all projects are selected click installed
-now search for  owin, select the microsoft.aspnet.identity.owen and mircosoft.aspnetwebapi.owen
-these two are only installed on the data project. now we will add our references. 
-we need to decide what assemblies need to know about what other assemblies in our case
-right click the webapi and go to add->
+!now search for  owin, select the microsoft.aspnet.identity.owin and microsoft.aspnetwebapi.owin
+these two are only installed on the data project!
+!when I followed eleven note these come up as already installed, so I did not uninstall them from the other projects!
+!except it didnt work so I re opened the nuget package manager after right clicking on the solution, and am now having to do as they said *shrug*!
 
+now we will add our references. 
+we need to decide what assemblies need to know about what other assemblies in our case
+right click the webapi and go to add->reference, click on projects->solution. select the data models and services projects
+we need to add our using statements. attempt to build the project with CTRL+SHIFT+B
+there will be several problems. select the first one. it will actually take us to the identityconfig.cs in the app start folder for the webapi project. fix it by pressing CTRL+. and bringing in a using statement as suggested. this will fix that particular problem, so we can rinse and repeat. telling visual studio to build the project saves all the files and attempts to build the program. more errors (really some of the same that had been reported earlier) will appear; follow the same steps to go to the errors and use CTRL+. to bring in a using statement until there are none left. 
+now lets set up git, and push to github
+there will be a small symbol, says i dont remember what, but if you click it it shows a menu of 1 : git. click that and it should open up a windows where it wants to make a local and remote repository on github.
+Next step: configure identity model.
+in the data layer, open the identitymodels.cs file. find the applicationDbContext class
+underneath but still inside the namespace, create a identityuserloginconfiguration (PascalCase)
+make it public and have it inherit from entityTypeConfiguration<IdentityUserLogin>
+it needs a constructor with a single line of code: HasKey(iul => iul.UserId)
+Ctrl+. to bring in using system  bla bla modelConfiguration
+create another class IdentityUserRoleConfiguration : EntityTypeConfiguration<IdentityUserRole>
+with the same kind of constructor with the haskey(iul => iur.UserId) (note the l and r on the fields)
+above in the applicationDbContext add a field DbSet<Note> now, elevennote has note classes and 
+several others
+this app will have several different classes, namely post, comment, reply, and like class
+so our DbSet should be of that type, and we will be creating those classes in the next couple steps (I hope)
+so create the DbSet with a Post in place of the Note
+finally under the Posts property, type override onModelCreating(modelBuilder)
+delete the base.OnModelCReating method, and replace it with modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+modelBuilder.Configurations.Add(new IdentityUserLoginConfiguration()).Add(new IdentityUserRoleConfiguration());
+CTRL+. to bring in the using statement. Now its time to deal with the data layer
 
