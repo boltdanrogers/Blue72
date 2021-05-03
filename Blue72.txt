@@ -47,5 +47,20 @@ so create the DbSet with a Post in place of the Note
 finally under the Posts property, type override onModelCreating(modelBuilder)
 delete the base.OnModelCReating method, and replace it with modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 modelBuilder.Configurations.Add(new IdentityUserLoginConfiguration()).Add(new IdentityUserRoleConfiguration());
-CTRL+. to bring in the using statement. Now its time to deal with the data layer
-
+CTRL+. to bring in the using statement. Now its time to deal with the data layer and finally add some classes
+right click on the data layer assembly, and add->class. we need to add all the different classes here, and annotate them so they have the the correct properties.
+our post has an id, title, text, virtual list of comments, virtual list of likes, and a guid author id
+the comment class will have an id, a text, guid author id, virtual list of replies, foreign key to post and virtual post
+reply class with an id, a foreign key to comment with virtual comment, text and guid author id
+finally a like class with an id a virtual foreign key etc to post, and a guid ownerid
+eleven note focuses on creating the note class, and then building out the different layers for that so that it can be tested and then expanded
+so we will do that for post. add the annotations the different properties need, and save
+there are different annotations that can be used to create validations on our fields
+required, range and max length and display are some. 
+we must set up the connection string: open web.config in the webapi assembly
+we can see a tag called connectionstring, that has a name inside called defaultconnection
+if we look at IDentityModels that we moved to the data layer, there is a constructor for the applicationDbContext that takes that as an argumnet.
+Back in the webconfig, we see the name of the database is in two places.
+the current setup has a mdf file with the name of our database, and an initial catalog value of the same name. replace everything inside the connectionstring tags with a slightly different, simpler and shorter connectionstring.currently it says aspnet-blue72.webApi-397364583764, and we will change that to be just initial catalog = Blue72;
+try to build the project, and deal with errors that arrise. I had forgotten to make the different classes public, so had to go and add that to each before the program would build
+when there are no errors, 
