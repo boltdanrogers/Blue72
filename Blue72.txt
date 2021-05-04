@@ -69,3 +69,13 @@ we will create a user account with the api by using the api/account/register end
 create a post command with the localhost address of the application from the browser window, followed by api/account/register. using whatever email and password you want that conforms to the requirements, create a user with the post command. now we will use that combination to get a token from the web app
 be sure to go ahead and code out all the fields and annotations in the four classes. Key, Required, ForeignKey(nameof()) along with virtual properties and lists that must be initialized explicitly
 run the app and use postman and the eleven note guide to create a user and password combination and register it with the database. since it works, commit the changes.
+run the post command, then run a different post command with /Token at the end of the port number. this plus the username and password will send back a long string called a token
+copy and save for later. Guids are Global Unique Identifiers, and have a very very small chance of being duplicated (one in one trillion)
+time to start making our model layer, starting with a model to be part of a list of Posts
+right click on the model assembly and add->class, call it PostListItem
+this model only needs a small amount of info, the id and the title. create those fields
+next a PostCreate model to validate the info we use to create a post. add the required annotation to the title and use CTRL+. to bring in the using statement. also add several other requirements, such as MinLength(2,ErrorMessage = "Please enter at least 2 characters.")
+and MaxLength(100, ErrorMessage = "There are too many character in the field.")
+as well as a MaxLength(8000) for the Content. with that done we need a service for Post
+aptly named PostService in the service layer will be how our application interacts with the database. this class needs as private readonly Guid _userId, which we will asign in the constructor the value of the passed in userId. this assembly needs references to the model and data layer, so right click on the services assembly and choose Add->References, selecting models and data assemblies.
+to the class, add a CreatePost method that will have PostCreate model as an argument
