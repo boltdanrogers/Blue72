@@ -32,7 +32,7 @@ namespace Blue72.Data
         {
             return new ApplicationDbContext();
         }
-
+        public DbSet<Comment> Comments { get; set; }
         //a DbSet represents the collection of all entities in the context of a given type that can be queried
         public DbSet<Post> Posts {get; set;}
 
