@@ -54,11 +54,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blue72.Data\Blue72.Data.csproj">
+      <Project>{71f07c7e-f7f1-4c71-9ba5-d2246f52eda6}</Project>
+      <Name>Blue72.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Blue72.Models\Blue72.Models.csproj">
+      <Project>{e509ae0f-fe0f-41b6-acc2-d21eb5847f4d}</Project>
+      <Name>Blue72.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
