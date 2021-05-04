@@ -17,7 +17,7 @@ namespace Blue72.Data
         [Required]
         public Guid AuthorId { get; set; }
         [ForeignKey(nameof(Comment))]
-        public int CommentId { get; set; }
+        public int CommentID { get; set; }
         public virtual Comment Comment { get; set; }
 
     }//end of class Reply
